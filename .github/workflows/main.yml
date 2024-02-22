@@ -1,0 +1,53 @@
+# will add a test and lint step for backend in later commits
+name: Change Log CI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - '**'
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Bun
+      run: |
+        curl -fsSL https://bun.sh/install | bash
+        echo "$HOME/.bun" >> $GITHUB_PATH
+
+    - name: Install backend dependencies
+      run: |
+        cd backend
+        bun install
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Bun
+      run: |
+        curl -fsSL https://bun.sh/install | bash
+        echo "$HOME/.bun" >> $GITHUB_PATH
+
+    - name: Install frontend dependencies
+      run: |
+        cd frontend
+        bun install
+
+    - name: Lint frontend code
+      run: |
+        cd frontend
+        bun run lint
+
+    - name: Run frontend tests
+      run: |
+        cd frontend
+        bun test
