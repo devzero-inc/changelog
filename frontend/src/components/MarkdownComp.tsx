@@ -11,11 +11,9 @@ const MarkdownComp: React.FC<Props> = ({ file }) => {
   useEffect(() => {
     fetch(file)
       .then((response) => {
-        console.log(response);
         return response.text();
       })
       .then((text) => {
-        console.log(text);
         setPost(text);
       });
   }, [file]);
