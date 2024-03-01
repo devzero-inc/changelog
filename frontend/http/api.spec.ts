@@ -24,7 +24,7 @@ describe("getChangeLogs", () => {
 
     const res = await getChangeLogs();
 
-    expect(globalThis.fetch).toHaveBeenCalledWith("http://localhost:5000/changelogs");
+    expect(globalThis.fetch).toHaveBeenCalledWith("http://localhost:5000/change-log");
     expect(res).toEqual(mockResponse);
   });
 
