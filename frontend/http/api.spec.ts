@@ -19,7 +19,7 @@ describe("getChangeLogs", () => {
     };
 
     (global.fetch as jest.Mock).mockResolvedValueOnce({
-      json: async () => ({ status: 200, data: mockData }),
+      json: async () => (mockResponse),
     });
 
     const res = await getChangeLogs();

@@ -20,7 +20,8 @@ jobs:
     - name: Set up Bun
       run: |
         curl -fsSL https://bun.sh/install | bash
-        echo "$HOME/.bun" >> $GITHUB_PATH
+        echo "$HOME/.bun/bin" >> $GITHUB_PATH
+        $HOME/.bun/bin/bun --version
 
     - name: Install backend dependencies
       run: |
@@ -35,7 +36,15 @@ jobs:
     - name: Set up Bun
       run: |
         curl -fsSL https://bun.sh/install | bash
-        echo "$HOME/.bun" >> $GITHUB_PATH
+        echo "$HOME/.bun/bin" >> $GITHUB_PATH
+        $HOME/.bun/bin/bun --version
+
+    # Adding Node.js setup for linting since Bun doesn't support any linter
+    # and doesn't provide a built-in linter.
+    - name: Set up Node.js for linting
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
 
     - name: Install frontend dependencies
       run: |
