@@ -83,9 +83,29 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Make Docker Compose script executable
-        run: chmod +x ./docker-compose-up.sh
+      - name: Start services
+        run: docker-compose up -d
 
-      - name: Run Docker Compose script
-        run: ./docker-compose-up.sh
-      
+      - name: Wait for front_end service to become healthy
+        run: |
+          echo "Waiting for front_end service to become healthy..."
+          RETRIES=10
+          while [ $RETRIES -gt 0 ]; do
+            HEALTH_STATUS=$(docker inspect --format='{{.State.Health.Status}}' $(docker-compose ps -q front_end))
+            if [ "$HEALTH_STATUS" == "healthy" ]; then
+              echo "front_end service is healthy."
+              break
+            else
+              echo "Waiting for front_end service to become healthy. Current status: $HEALTH_STATUS"
+              sleep 10
+              RETRIES=$((RETRIES-1))
+            fi
+          done
+
+          if [ $RETRIES -le 0 ]; then
+            echo "front_end service did not become healthy in time."
+            exit 1
+          fi
+
+      - name: Shutdown services
+        run: docker-compose down

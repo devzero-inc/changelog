@@ -1,5 +1,7 @@
 FROM oven/bun
 
+RUN apt-get update && apt-get install -y curl
+
 WORKDIR /front/src/app
 
 COPY package*.json .

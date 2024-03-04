@@ -3,7 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "start": "bun run scripts/db-init.ts && bun run scripts/db-seed.ts && bun run index.ts",
+    "start": "bun run index.ts",
     "test": "jest",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
