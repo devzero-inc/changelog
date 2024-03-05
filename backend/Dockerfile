@@ -1,5 +1,7 @@
 FROM oven/bun
 
+RUN apt-get update && apt-get install -y curl
+
 WORKDIR /back/src/app
 
 COPY package*.json .
@@ -10,4 +12,4 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["bun", "run", "index.ts"]
+CMD ["bun", "run", "start"]
