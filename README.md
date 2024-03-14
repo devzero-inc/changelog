@@ -1,4 +1,4 @@
-# Changelog
+# Changelog ![ workflow](https://github.com/devzero-inc/changelog/actions/workflows/main.yml/badge.svg)
 
 ### Overview
 ***
